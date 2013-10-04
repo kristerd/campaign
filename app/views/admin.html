@@ -1,3 +1,37 @@
-<div>
-	<button ng-click="test()">Working?</button>
+<div class="main-container">
+	<h1>Campaigns</h1>
+
+	<div>
+		Name:
+		<input type="text" ng-model="campaign.name" />
+		<br />
+		Valid from:
+		<input type="date" ng-model="campaign.validFrom"/>
+		<br/>
+		Valid to:
+		<input type="date" ng-model="campaign.validTo"/>
+		<br/>
+		<button ng-click="newCampaign()">Create new campaign</button>
+	</div>
+
+	<p>Campaigns:</p>
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Valid from</th>
+			<th>Valid to</th>
+		</tr>
+		<tr ng-repeat="cam in campaigns">
+			<td>
+				<a href="#/campaigns/{{campaign.id}}">{{cam.name}}</a>
+			</td>
+			<td>
+				{{cam.validFrom}}
+			</td>
+			<td>
+				{{cam.validTo}}
+			</td>
+		</tr>
+	</table>
 </div>
