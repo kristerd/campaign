@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('campaignApp')
-		.controller('AdminCtrl', function ($scope, $location, angularFire) {
-			var ref = new Firebase('https://campaign.firebaseio.com/');
+		.controller('AdminCtrl', function ($scope, $routeParams, $location, Campaign, angularFire) {
+			var campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns');
 
-			angularFire(ref, $scope, 'items');
+			angularFire(campaignRef, $scope, 'campaigns');
 
-			$scope.test = function () {
-				console.log('yey');
+			$scope.newCampaign = function () {
+				var campaign = Campaign.createNewCampaign($scope.campaign.name, $scope.campaign.validFrom, $scope.campaign.validTo);
+				campaign.save();
+				$scope.campaign = null;
 			};
 		});
