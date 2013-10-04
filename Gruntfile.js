@@ -1,6 +1,6 @@
 // Generated on 2013-10-04 using generator-angular 0.4.0
 'use strict';
-var LIVERELOAD_PORT = 35729;
+var LIVERELOAD_PORT = 35728;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
@@ -66,9 +66,9 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 9000,
+        port: 8000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
