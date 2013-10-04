@@ -1,13 +1,23 @@
 'use strict';
 
 angular.module('campaignApp', [])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+	.config(function ($routeProvider) {
+		$routeProvider
+			.when('/', {
+				templateUrl: 'views/main.html',
+				controller: 'MainCtrl'
+			})
+			.when('/admin', {
+				templateUrl: 'views/admin.html'
+			})
+			.when('/results', {
+				templateUrl: 'views/results.html'
+			})
+			.when('/register', {
+				templateUrl: 'views/register.html',
+				controller: 'RegisterCtrl'
+			})
+			.otherwise({
+				redirectTo: '/'
+			});
+		});
