@@ -9,14 +9,22 @@
 	<button>Oppdater</button>
 </div>-->
 
-<div class="hero-unit">
-	<h1>Legg til salg</h1>
-	<label>Kampanje</label><br />
-	<select>
-		<option value="1">Tour de Tryg</option>
-		<option value="2">Tour de Tryg</option>
-		<option value="3">Tour de Tryg</option>
-	</select><br />
-	<input type="number" placeholder="Sum av salg i NOK">
-	<button>Lagre salg</button>
+<div class="content">
+	<a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
+	<h1>Hei {{user.name}}</h1>
+	<h4>Registrer salg</h4>
+	
+	<div class="field">
+	  <div class="picker">
+	    <select ng-model="campaignId" ng-options="k as v.name for (k,v) in campaigns">
+			<option value="">Velg kampanje ...</option>
+		</select>
+	  </div>
+	</div>
+	<div class="field">
+		<input ng-model="salesAmount" type="text" placeholder="Sum av salg i NOK" class="xwide text input">
+	</div>
+	<div class="medium primary btn" ng-click="addSale()">
+	  <a href="">Lagre salg</a>
+	</div>
 </div>

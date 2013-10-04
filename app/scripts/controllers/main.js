@@ -17,17 +17,12 @@ angular.module('campaignApp')
   				console.log('fred’s1 first name is ', snapshot.val());
 			}); 
 			$scope.$apply(function() { 
-				//$location.path("/register"); 
+				$location.path("/register"); 
 			});
 		}
 		else {
 			console.log("Not Logged In");
 		}
-	});
-
-	chatRef.child("users").on('value', function(snapshot) {
-
-  		console.log('fred’s first name is ', snapshot.val());
 	});
 
 	$scope.logIn = function() {
