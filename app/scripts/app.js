@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('campaignApp', [])
+angular.module('campaignApp', ['firebase'])
 	.config(function ($routeProvider) {
 		$routeProvider
 			.when('/', {
@@ -8,7 +8,8 @@ angular.module('campaignApp', [])
 				controller: 'MainCtrl'
 			})
 			.when('/admin', {
-				templateUrl: 'views/admin.html'
+				templateUrl: 'views/admin.html',
+				controller: 'AdminCtrl'
 			})
 			.when('/results', {
 				templateUrl: 'views/results.html'
