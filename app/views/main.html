@@ -6,4 +6,13 @@
   	<button ng-click="logIn()">Logg Inn</button>
   </form>
   <button ng-click="logOut()">Logg ut</button>
+  <form>
+  	<h3>Ny Bruker</h3>
+  	<input ng-model="newUser.name" type="text" placeholder="Ditt navn"><br/>
+  	<input ng-model="newUser.email" type="text" placeholder="E-mail"><br/>
+  	<input ng-model="newUser.password" type="password" placeholder="Ønsket Passord"><br/>
+  	<input type="password" placeholder="Gjenta Passord"><br/>
+  	<button ng-click="addUser()">Opprett Bruker</button>
+  </form>
 </div>
+

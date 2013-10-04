@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('campaignApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $location, User) {
 
-  	$scope.user;
+  	$scope.user,
+  	$scope.newUser;
    
   	var chatRef = new Firebase('https://campaign.firebaseio.com');
 
@@ -11,6 +12,7 @@ angular.module('campaignApp')
 		if(user) {
 			console.log(user);
 			console.log("Logged In");
+			//$scope.$apply(function() { $location.path("/register"); });
 		}
 		else {
 			console.log("Not Logged In");
@@ -26,5 +28,23 @@ angular.module('campaignApp')
 
 	$scope.logOut = function() {
 		auth.logout();
+	}
+
+	$scope.addUser = function() {
+
+		var email = $scope.newUser.email,
+			password = $scope.newUser.password,
+			name = $scope.newUser.name;
+
+		auth.createUser(email, password, function(error, user) {
+		  if (!error) {
+		    console.log('User Id: ' + user.id + ', Email: ' + user.email);
+		    var newUser = User.createNewUser(name, email);
+			newUser.save(user.id);
+		  }
+		  else {
+		  	console.log(error);
+		  }
+		});
 	}
   });
