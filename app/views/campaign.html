@@ -1,0 +1,8 @@
+<div class="main-container">
+	<h1>{{campaign.name}} progress:</h1>
+
+	<div ng-repeat="user in users">
+		{{user.name}}:
+		<progress value="7000" max="{{campaign.goal}}" />
+	</div>
+</div>

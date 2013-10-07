@@ -11,8 +11,9 @@ angular.module('campaignApp', ['firebase'])
 				templateUrl: 'views/admin.html',
 				controller: 'AdminCtrl'
 			})
-			.when('/results', {
-				templateUrl: 'views/results.html'
+			.when('/campaign/:campaignId', {
+				templateUrl: 'views/campaign.html',
+				controller: 'CampaignCtrl'
 			})
 			.when('/register', {
 				templateUrl: 'views/register.html',

@@ -5,6 +5,9 @@
 		Name:
 		<input type="text" ng-model="campaign.name" />
 		<br />
+		Goal:
+		<input type="text" ng-model="campaign.goal"/>
+		<br/>
 		Valid from:
 		<input type="date" ng-model="campaign.validFrom"/>
 		<br/>
@@ -24,7 +27,7 @@
 		</tr>
 		<tr ng-repeat="cam in campaigns">
 			<td>
-				<a href="#/campaigns/{{campaign.id}}">{{cam.name}}</a>
+				<a href="#/campaign/{{cam.id}}">{{cam.name}}</a>
 			</td>
 			<td>
 				{{cam.validFrom}}

@@ -5,8 +5,9 @@ angular.module('campaignApp')
 			var Campaign,
 				campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns');
 
-			Campaign = function (name, validFrom, validTo) {
+			Campaign = function (name, goal, validFrom, validTo) {
 				this.name = name;
+				this.goal = goal;
 				this.validFrom = validFrom;
 				this.validTo = validTo;
 			};
@@ -18,8 +19,8 @@ angular.module('campaignApp')
 			};
 
 			return {
-				createNewCampaign: function (name, validFrom, validTo) {
-					return new Campaign(name, validFrom, validTo);
+				createNewCampaign: function (name, goal, validFrom, validTo) {
+					return new Campaign(name, goal, validFrom, validTo);
 				}
 			};
 		});
