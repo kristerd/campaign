@@ -12,11 +12,22 @@ angular.module('campaignApp')
 		if(user) {
 			console.log(user);
 			console.log("Logged In");
-			//$scope.$apply(function() { $location.path("/register"); });
+			
+			chatRef.child("users").child("user_"+user.id).on('value', function(snapshot) {
+  				console.log('fred’s1 first name is ', snapshot.val());
+			}); 
+			$scope.$apply(function() { 
+				//$location.path("/register"); 
+			});
 		}
 		else {
 			console.log("Not Logged In");
 		}
+	});
+
+	chatRef.child("users").on('value', function(snapshot) {
+
+  		console.log('fred’s first name is ', snapshot.val());
 	});
 
 	$scope.logIn = function() {

@@ -47,7 +47,6 @@ angular.module('campaignApp')
 
     User.prototype.save = function(userId) {
       var user = usersRef.child("user_"+userId).set(this);
-      usersRef.child(user.name()).update({id: user.name()});
     }
 
     User.prototype.update = function() {
