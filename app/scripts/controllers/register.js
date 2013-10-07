@@ -30,16 +30,29 @@ angular.module('campaignApp')
 		auth.logout();
 	}
 
-	$scope.addSale = function() {
+	$scope.addSale = function(newSale) {
 
 		var sale = {},
-			salesRef;
+			salesRef,
+			feedback = {};
 
-		sale.amount = $scope.salesAmount;
-		sale.campaign = $scope.campaignId;
+		if(newSale.$valid) {
 
-		salesRef = userRef.child("sales").push(sale);
+			sale.amount = $scope.salesAmount;
+			sale.campaign = $scope.campaignId;
 
+			salesRef = userRef.child("sales").push(sale);
+
+			feedback.message = "Nytt salg lagt inn";
+			feedback.status = "success";
+			$scope.feedback = feedback;
+			
+		}
+		else {
+			feedback.message = "Det skjedde en feil. Se at alle feltene er fylt ut, og at de er på riktig format.";
+			feedback.status = "danger";
+			$scope.feedback = feedback;
+		}
 	}
 
 });
