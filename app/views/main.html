@@ -1,18 +1,36 @@
-<div class="hero-unit">
+<div class="content">
+  <a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
+  <h1>Salgskampanje</h1>
   <h3>Logg inn</h3>
   <form action="">
-  	<input ng-model="user.email" type="text" placeholder="E-mail">
-  	<input ng-model="user.password" type="password" placeholder="Passord">
-  	<button ng-click="logIn()">Logg Inn</button>
-  </form>
-  <button ng-click="logOut()">Logg ut</button>
+	  <div class="field">
+	  		<input ng-model="user.email" type="text" placeholder="E-mail" class="xwide text input">
+	  </div>
+	  <div class="field">
+	  		<input ng-model="user.password" type="password" placeholder="Passord" class="xwide text input">
+	  </div>
+	  <div class="medium secondary btn" ng-click="logIn()">
+		 	<a href="">Logg inn</a>
+	  </div>
+	  </form>
   <form>
   	<h3>Ny Bruker</h3>
-  	<input ng-model="newUser.name" type="text" placeholder="Ditt navn"><br/>
-  	<input ng-model="newUser.email" type="text" placeholder="E-mail"><br/>
-  	<input ng-model="newUser.password" type="password" placeholder="Ønsket Passord"><br/>
-  	<input type="password" placeholder="Gjenta Passord"><br/>
-  	<button ng-click="addUser()">Opprett Bruker</button>
+	
+	<div class="field">
+		<input ng-model="newUser.name" type="text" placeholder="Ditt navn" class="xwide text input">
+	</div>
+	<div class="field">
+		<input ng-model="newUser.email" type="text" placeholder="E-mail" class="xwide text input">
+	</div>
+	<div class="field">
+		<input ng-model="newUser.password" type="password" placeholder="Ønsket Passord" class="xwide text input">
+	</div>
+	<div class="field">
+		<input type="password" placeholder="Gjenta Passord" class="xwide text input">
+	</div>
+	<div class="medium primary btn" ng-click="addUser()">
+	  <a href="">Opprett bruker</a>
+	</div>
   </form>
 </div>
 
