@@ -7,6 +7,10 @@ body {
     background-color: #EEEEEE !important;
 }
 
+.error {
+    color: red;
+}
+
 .content{
     padding: 20px;
     margin: 0px auto;
@@ -15,4 +19,152 @@ body {
     box-sizing: border-box;
     -webkit-box-shadow:  0px 0px 3px 0px rgba(50, 50, 50, 0.2);
     box-shadow:  0px 0px 3px 0px rgba(50, 50, 50, 0.2);
+}
+
+.date {
+    position: relative; 
+    margin: 2%; 
+    width: 12%; 
+    box-sizing: border-box; 
+    height: 150px; 
+    float: left; 
+    background-color: white; 
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0px 0px 2px 2px rgba(50, 50, 50, 0.5);
+    box-shadow:  0px 0px 2px 2px rgba(50, 50, 50, 0.5);
+    background-color: transparent;
+}
+
+.calendarDay {
+    position: absolute; 
+    width: 100%;
+    top: 35%;
+    text-align: center; 
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0px 0px 2px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
+}
+
+.winner {
+    position: absolute;
+    top: 60%;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.calendarProgress {
+    margin: 0px; 
+    height: 151px; 
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.calendarView {
+    overflow: hidden;
+    background-color: #B20107;
+    background-image: url(http://www.hdwallpapersinn.com/wp-content/uploads/2012/12/Christmas-Village-Wallpaper__yvt22.jpg);
+    background-size: 100% 100%;
+    padding: 20px;
+    margin: 0px auto;
+    min-height: 1000px;
+}
+
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]     /* polyfill */
+{
+
+    /* Turns off styling - not usually needed, but good to know. */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /* gets rid of default border in Firefox and Opera. */ 
+    border: none;
+
+    /* Needs to be in here for Safari polyfill so background images work as expected. */
+    background-size: auto;
+    
+    /* Dimensions */
+    width: 200px;
+    height: 40px;
+
+    margin-left: -5px;
+    
+}
+
+/* Polyfill */
+progress[role]:after {
+    background-image: none; /* removes default background from polyfill */
+}
+
+/* Ensure fallback text doesn't appear in polyfill */
+progress[role] strong {
+    display: none;
+}
+
+progress,                          /* Firefox  */ 
+progress[role][aria-valuenow] {    /* Polyfill */
+   background: #ffeeee !important; /* !important is needed by the polyfill */
+}
+
+/* Chrome */
+progress::-webkit-progress-bar {
+    background: #fff;
+}
+
+/* IE10 */
+progress {
+    color: black;
+}
+
+/* Firefox */
+progress::-moz-progress-bar { 
+    background: black;  
+}
+
+/* Chrome */
+progress::-webkit-progress-value {
+    background: black;
+    background: #af6063; /* Old browsers */
+background: -moz-linear-gradient(top,  #af6063 0%, #b20107 50%, #af6063 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#af6063), color-stop(50%,#b20107), color-stop(100%,#af6063)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #af6063 0%,#b20107 50%,#af6063 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #af6063 0%,#b20107 50%,#af6063 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #af6063 0%,#b20107 50%,#af6063 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #af6063 0%,#b20107 50%,#af6063 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#af6063', endColorstr='#af6063',GradientType=0 ); /* IE6-9 */
+
+}
+
+/* Polyfill */
+progress[aria-valuenow]:before  {
+    background: black;
+}
+
+/* IE10 */
+progress.overGoal {
+    color: green;
+}
+
+/* Firefox */
+progress.overGoal::-moz-progress-bar { 
+    background: green;  
+}
+
+/* Chrome */
+progress.overGoal::-webkit-progress-value {
+    background: green;
+}
+
+/* Polyfill */
+progress.overGoal[aria-valuenow]:before  {
+    background: green;
+}
+
+.overGoal {
+    border-left: 4px solid red;
 }

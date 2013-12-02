@@ -45,8 +45,12 @@ angular.module('campaignApp')
         return this.sales;
     }
 
-    User.prototype.save = function(userId) {
-      var user = usersRef.child("user_"+userId).set(this);
+    User.prototype.save = function(userId, callback) {
+      var user = usersRef.child("user_"+userId).set(this, function() {
+        if (callback) {
+          callback.apply();
+        }
+      });
     }
 
     User.prototype.update = function() {

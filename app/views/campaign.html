@@ -1,8 +1,64 @@
-<div class="main-container">
-	<h1>{{campaign.name}} progress:</h1>
-
-	<div ng-repeat="user in users">
-		{{user.name}}:
-		<progress value="7000" max="{{campaign.goal}}" />
+<div class="content">
+	<a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
+	<h1>Kampanje</h1>
+	<p>Innstillinger for kampanje: {{campaign.name}}</p>
+	<form action="">
+		<div class="field">
+	      <label class="inline" for="text1">Kampanjenavn</label>
+	      <input ng-model="campaign.name" class="wide text input" id="text1" type="text" placeholder="wide input" />
+	    </div>
+	    <div class="field">
+	      <label class="inline" for="text1">Kampanjestart</label>
+	      <input ng-model="campaign.validFrom" class="narrow text input" id="text1" type="text" placeholder="wide input" />
+	    </div>
+	    <div class="field">
+	      <label class="inline" for="text1">Kampanjeslutt</label>
+	      <input ng-model="campaign.validTo" class="narrow text input" id="text1" type="text" placeholder="wide input" />
+	    </div>
+		<div class="field">
+			<span class="picker">
+				<select ng-model="campaign.type" >
+					<option value="">Velg type</option>
+					<option value="Begge">sdf1</option>
+					<option value="Team">sdf2</option>
+				</select>
+			</span>
+		</div>
+		<div class="medium secondary btn" ng-click="save()">
+			<a href="">Lagre</a>
+		</div>
+		<div ng-repeat="day in days">
+			{{day.date | date:'d'}}
+		</div>
+	</form>
+	<hr>
+	<div class="">
+		<h2>Datoer</h2>
+	</div>
+	<div>
+		<div ng-repeat="day in daysWithLeaders" class="date" style="border: 1px solid black; width: 200px; height: 200px; padding: 10px; float: left">
+			<div style="text-align: center; font-size: 30px;">{{day.day}}</div>
+			<progress style="width: 150px; height: 100px;" value="{{day.leader.progress}}" max="1">
+		</div>
+	</div>
+	<hr>
+	<div class="">
+		<h2>Legg til team</h2>
+	</div>
+	<div class="field">
+			<span class="picker">
+				<select ng-model="campaignId" name="campaign" ng-options="o.value as o.label for o in selectables" required>
+					<option value="">Team 1</option>
+				</select>
+			</span>
+			<div class="medium secondary btn" ng-click="addTeam()">
+				<a href="">Legg til</a>
+			</div>
+	</div>
+	<div ng-repeat="team in campaign.teams" class="teamList">
+		{{team}}
+	</div>
+	<div class="{{feedback.status}} alert">
+		{{feedback.message}}
 	</div>
 </div>

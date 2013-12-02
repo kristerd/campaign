@@ -1,0 +1,35 @@
+<div class="content">
+
+	<h4>Brukere</h4>
+	<!--<form name="newSale">
+			<div class="field">
+				<input ng-model="teamName" name="teamName" type="text" placeholder="Teamnavn" class="xwide text input" required>
+			</div>
+			<div class="medium primary btn" ng-click="addTeam(teamName)">
+			  <a href="">Opprett team</a>
+			</div>
+	</form>-->
+	<div class="row">
+		<div class="five columns">
+			<span class="bold">Navn</span>
+		</div>
+		<div class="two columns">
+			<span class="bold">Dagsmål</span>
+		</div>
+		<div class="five columns">
+			<span class="bold">Team</span>
+		</div>
+	</div>
+	<div class="row sale" ng-repeat="(key, user) in users">
+		<h5 class="five columns">{{user.name}}</h5>
+		<div class="two columns field">
+			<input ng-model="user.goalDay" ng-change="setGoal()" name="goalDay" type="number" placeholder="" class="text input" required>
+		</div>
+		<div class="picker five columns">
+			<select ng-model="user.team.id" name="team" ng-options="k as v.name for (k,v) in teams" ng-change="setTeam(key)" required>
+				
+			</select>
+		</div>
+	</div>
+
+</div>

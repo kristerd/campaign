@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('campaignApp')
-  .controller('MainCtrl', function ($scope, $location, User) {
+  .controller('MainCtrl', function ($scope, $location, User, TeamService) {
 
   	$scope.user,
-  	$scope.newUser;
+  	$scope.newUser = {};
+  	$scope.success = false;
    
   	var chatRef = new Firebase('https://campaign.firebaseio.com');
 
@@ -21,9 +22,16 @@ angular.module('campaignApp')
 			});
 		}
 		else {
-			console.log("Not Logged In");
+			console.log("Not Logged In", error);
 		}
 	});
+
+	TeamService.getTeams(function(data) {
+		$scope.$apply(function() {
+			$scope.teams = data;
+		});
+		
+	})
 
 	$scope.logIn = function() {
 		auth.login('password', {
@@ -40,17 +48,43 @@ angular.module('campaignApp')
 
 		var email = $scope.newUser.email,
 			password = $scope.newUser.password,
-			name = $scope.newUser.name;
+			name = $scope.newUser.name,
+			team = $scope.teamId;
 
-		auth.createUser(email, password, function(error, user) {
-		  if (!error) {
-		    console.log('User Id: ' + user.id + ', Email: ' + user.email);
-		    var newUser = User.createNewUser(name, email);
-			newUser.save(user.id);
-		  }
-		  else {
-		  	console.log(error);
-		  }
-		});
+		if (email && password && name && team) {
+			auth.createUser(email, password, function(error, user) {
+			  if (!error) {
+
+			  	$scope.error = "";
+
+			    console.log('User Id: ' + user.id + ', Email: ' + user.email);
+			    var newUser = User.createNewUser(name, email);
+
+		    	newUser.team = {
+		    		id: $scope.teamId
+		    	};
+
+			    newUser.goalDay = 0;
+			    newUser.user_id = user.id;
+				newUser.save(user.id, function() {
+					console.log("opprettet");
+					$scope.$apply(function() {
+						$scope.success = true;
+						$scope.message = "Ny bruker opprettet, du kan nå logge inn."
+					});
+					
+				});
+
+			  }
+			  else {
+			  	console.log(error);
+			  	$scope.error = "Oppretting av bruker feilet. " + error;
+			  }
+			});
+		}
+		else {
+			$scope.error = "Du må velge fylle inn alle feltene for å registrere deg";
+		}
+		
 	}
   });

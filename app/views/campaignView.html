@@ -1,0 +1,10 @@
+<div class="calendarView">
+	<div ng-show="!day.weekend" class="date" ng-repeat="day in daysWithLeaders" class="date">
+		<div class="calendarDay">{{day.day}}</div>
+		<div ng-show="day.winner" class="winner">
+			<div>VINNER:</div>
+			{{day.winner.name}}
+		</div>
+		<progress class="calendarProgress" style="" value="{{day.leader.progress}}" max="1">
+	</div>
+</div>

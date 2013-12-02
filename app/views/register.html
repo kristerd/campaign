@@ -11,29 +11,75 @@
 
 <div class="content">
 	<a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
-	<h1>Hei {{user.name}}</h1>
+	<h3 class="bold">Hei {{user.name}}</h3>
 	<h4>Registrer salg</h4>
 	<form name="newSale">
-		<div class="field">
+		<!--<div class="field">
 		  <div class="picker">
 		    <select ng-model="campaignId" name="campaign" ng-options="k as v.name for (k,v) in campaigns" required>
 				<option value="">Velg kampanje ...</option>
 			</select>
-		  </div>	
+		  </div>
+		</div>-->
+		<!--<div class="field">
+			<input ng-model="salesDate" ui-date-format="DD, d MM, yy" ui-date="dateOptions" name="salesDate" class="xwide date input"></input>
+		</div>-->
+		<div ng-show="(user.goalDay > 0)">
+			<div class="field">
+				<input ng-model="salesAmount" name="salesAmount" type="number" placeholder="Sum av salg i NOK" class="xwide text input" required>
+			</div>
+			<div class="medium primary btn" ng-click="addSale(newSale)">
+			  <a href="">Lagre salg</a>
+			</div>
 		</div>
-		<div class="field">
-			<input ng-model="salesAmount" name="salesAmount" type="number" placeholder="Sum av salg i NOK" class="xwide text input" required>
-		</div>
-		<div class="medium primary btn" ng-click="addSale(newSale)">
-		  <a href="">Lagre salg</a>
+		<div ng-show="(user.goalDay <= 0)">
+			<span class="error">Din teamleder må sette salgsmål før du kan registere salg</span>
 		</div>
 	</form>
 	<div class="{{feedback.status}} alert">
 		{{feedback.message}}
 	</div>
+	<hr>
+	<h4>Måloppnåelse</h4>
+	<p>Totalt salg i dag: {{salesSum}} kroner</p>
+	<p>Totalt salg i kampanjen: {{salesSum}} kroner</p>
+	<!--<div class="field">
+		<input ng-model="user.goalDay" name="goalDay" type="number" placeholder="Mitt daglige mål" class="xwide text input" required>
+	</div>
+	<div class="medium primary btn" ng-click="saveGoal()">
+	  <a href="">Lagre mål</a>
+	</div>-->
+	<div class="row goal">
+		<span class="two columns me">Meg: </span>
+		<div class="eigth columns">
+			<progress value="{{salesSum}}" max="{{user.goalDay}}"></progress>
+			<progress class="overGoal" value="{{salesSum - user.goalDay}}" max="{{user.goalDay*0.8}}"></progress>
+		</div>
+	</div>
+	<div class="row goal">
+		<span class="two columns me">Team: </span>
+		<div class="eigth columns">
+			<progress value="{{teamSum}}" max="{{teamGoal}}"></progress>
+			<progress class="overGoal" value="{{teamSum - teamGoal}}" max="{{teamGoal*0.8}}"></progress>
+		</div>
+	</div>
+	<hr>
+	<div ng-show="true" class="adminLinks">
+		<h4>Admin</h4>
+		<h5>Linker til kampanjeadmin</h5>
+		<a ng-repeat="(key, value) in campaigns" ng-href="/#/campaign/{{key}}">{{value.name}}</a>
+		<h5>Linker til kampanjevisning</h5>
+		<a ng-repeat="(key, value) in campaigns" ng-href="/#/campaignView/{{key}}">{{value.name}}</a>
+		<h5>Brukeradmin</h5>
+		<a ng-href="/#/user">Brukere</a>
+		<hr>
+	</div>
+
 	<h4>Mine salg</h4>
 	<div class="row sale" ng-repeat="sale in user.sales | orderBy:campaign:true">
-		<h5 class="six columns">{{sale.amount}},00</h5>
-		<h6 class="six columns">{{sale.campaign}}</h6>
+		<h5 class="three columns">{{sale.amount}},00</h5>
+		<h6 class="six columns">{{sale.campaignName}}, {{sale.date | date:'medium'}}</h6>
+
+		<button ng-click="deleteSale(sale.id)" class="one columns">SLETT</button>
 	</div>
 </div>

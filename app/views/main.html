@@ -12,10 +12,17 @@
 	  <div class="medium secondary btn" ng-click="logIn()">
 		 	<a href="">Logg inn</a>
 	  </div>
-	  </form>
-  <form>
+  </form>
+  <span class="success">{{message}}</span>
+  <form ng-show="!success">
   	<h3>Ny Bruker</h3>
-	
+	<div class="field">
+		<div class="picker">
+			<select ng-model="teamId" name="campaign" ng-options="k as v.name for (k,v) in teams" required>
+				<option value="">Velg team ...</option>
+			</select>
+		</div>
+	</div>
 	<div class="field">
 		<input ng-model="newUser.name" type="text" placeholder="Ditt navn" class="xwide text input">
 	</div>
@@ -31,6 +38,7 @@
 	<div class="medium primary btn" ng-click="addUser()">
 	  <a href="">Opprett bruker</a>
 	</div>
+	<span class="error">{{error}}</span>
   </form>
 </div>
 

@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('campaignApp', ['firebase'])
+angular.module('campaignApp', ['firebase', 'ui.date'])
 	.config(function ($routeProvider) {
+
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',
@@ -18,6 +19,18 @@ angular.module('campaignApp', ['firebase'])
 			.when('/register', {
 				templateUrl: 'views/register.html',
 				controller: 'RegisterCtrl'
+			})
+			.when('/teams', {
+			  templateUrl: 'views/teams.html',
+			  controller: 'TeamsCtrl'
+			})
+			.when('/user', {
+			  templateUrl: 'views/user.html',
+			  controller: 'UserCtrl'
+			})
+			.when('/campaignView/:campaignId', {
+			  templateUrl: 'views/campaignView.html',
+			  controller: 'CampaignviewCtrl'
 			})
 			.otherwise({
 				redirectTo: '/'
