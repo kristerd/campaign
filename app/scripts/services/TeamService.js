@@ -66,6 +66,8 @@ angular.module('campaignApp')
     			teamSalesGoal : 0
     		};
 
+    var date = moment(date).format("YYYY-MM-DD");
+
 		userRef.once("value", function(snapshot) {
 			var users = snapshot.val();
 
@@ -76,7 +78,9 @@ angular.module('campaignApp')
 					salesSummary.teamSalesGoal += value.goalDay;
 					if (sales) {
 						$.each(sales, function( index, value ) {
-							salesSummary.teamSalesSum += value.amount;
+              if(moment(date).isSame(value.date)) {
+							   salesSummary.teamSalesSum += value.amount;
+              }
 						});
 					}
 				}

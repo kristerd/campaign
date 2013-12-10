@@ -24,13 +24,13 @@ angular.module('campaignApp')
 				if (user) {
 					angularFire(campaignRef, $scope, 'campaign');
 				} else {
-					console.log("Not Logged In");
+					//console.log("Not Logged In");
 				}
 			});
 
 			//angularFire(campaignRef, $scope, 'campaign');
 			angularFire(usersRef, $scope, 'users');
-			
+
 			CampaignService.getDaysWithSales($routeParams.campaignId, function(days) {
 				$scope.daysWithLeaders = days;
 				if (days) {
@@ -52,7 +52,7 @@ angular.module('campaignApp')
 
 		        if(date1.setHours(0,0,0,0) === date2.setHours(0,0,0,0))
 		        {
-		        	console.log(" ->  " + date1, date2);
+		        	//console.log(" ->  " + date1, date2);
 		            return true;
 		        }
 		        return false;
@@ -71,7 +71,7 @@ angular.module('campaignApp')
 					i,
 					noOfDays = to.diff(from, "days");
 
-					console.log(noOfDays);
+					//console.log(noOfDays);
 
 				for (i = 0; i <= noOfDays; i++) {
 
@@ -95,7 +95,7 @@ angular.module('campaignApp')
 
 					days.push(day);
 
-					console.log(currentDate.format("YYYY-MM-DD"));
+					//console.log(currentDate.format("YYYY-MM-DD"));
 					currentDate = currentDate.add('days', 1);
 				} 
 

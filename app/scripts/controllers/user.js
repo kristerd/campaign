@@ -7,7 +7,7 @@ angular.module('campaignApp')
 
     var auth = new FirebaseSimpleLogin(mainRef, function(error, user) {
 
-    	console.log(error, user);
+    	//console.log(error, user);
 
    	});
 
@@ -24,12 +24,12 @@ angular.module('campaignApp')
   	});
 
   	$scope.setGoal = function() {
-  		console.log(this.user);
+  		//console.log(this.user);
   		UserService.updateUser("user_"+this.user.user_id, angular.copy(this.user));
   	}
 
   	$scope.setTeam = function(id) {
-  		console.log("test ", this.user, id);
+  		//console.log("test ", this.user, id);
   		UserService.updateUser(id, angular.copy(this.user));	
   	};
 

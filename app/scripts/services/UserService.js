@@ -35,7 +35,7 @@ angular.module('campaignApp')
 
               $.each(sales, function( index, value ) {
                   if(moment(date).isSame(value.date)) {
-                    
+
                     todaysSales.push(value);
                   }
               });
@@ -76,7 +76,7 @@ angular.module('campaignApp')
 
     service.getTodaysSalesSumForUser = function(userId, callback) {
 
-        console.log("UserService.getTodaysSalesSumForUser("+userId+") called");
+        //console.log("UserService.getTodaysSalesSumForUser("+userId+") called");
         
         var sales,
             sum = 0;
@@ -92,7 +92,7 @@ angular.module('campaignApp')
           }
           
           if (callback) {
-              console.log("CALLBACK: UserService.getTodaysSalesSumForUser("+userId+") ", sum);
+              //console.log("CALLBACK: UserService.getTodaysSalesSumForUser("+userId+") ", sum);
               callback.apply(this, [sum]);
           }
       });
@@ -100,7 +100,7 @@ angular.module('campaignApp')
 
     service.getDateSalesSumForUser = function (userId, date, callback) {
 
-        console.log("UserService.getDateSalesSumForUser("+userId+","+date+") called");
+       // console.log("UserService.getDateSalesSumForUser("+userId+","+date+") called");
 
         var sales,
               sum = 0;
@@ -116,7 +116,7 @@ angular.module('campaignApp')
             }
 
             if (callback) {
-                console.log("CALLBACK: UserService.getDateSalesSumForUser("+userId+") ", sum);
+               // console.log("CALLBACK: UserService.getDateSalesSumForUser("+userId+") ", sum);
                 callback.apply(this, [sum]);
             }
         });

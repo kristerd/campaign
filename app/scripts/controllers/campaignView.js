@@ -33,13 +33,13 @@ angular.module('campaignApp')
 						}*/
 
 					usersRef.on("value", function(snapshot) {
-						console.log(snapshot.val());
+						//console.log(snapshot.val());
 						
 						CampaignService.getDaysWithSales($routeParams.campaignId, function(days) {
 							
 							CampaignService.getCampaign($routeParams.campaignId, function(campaign) {
-								console.log("GETTING THE Campaign")
-								console.log(campaign.days);
+								//console.log("GETTING THE Campaign")
+								//console.log(campaign.days);
 								$scope.$apply(function() {
 									$scope.daysWithLeaders = campaign.days;
 								});
@@ -62,7 +62,7 @@ angular.module('campaignApp')
 				
 
 			} else {
-				console.log("Not Logged In");
+				//console.log("Not Logged In");
 			}
 		});
   });

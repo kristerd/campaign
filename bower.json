@@ -9,10 +9,9 @@
     "angular-cookies": "~1.0.7",
     "angular-sanitize": "~1.0.7",
     "angular-fire": "~0.3.1",
-    "jquery": "~2.0.3",
+    "jquery": "~1.9",
     "momentjs": "~2.4.0",
-    "angular-ui-date": "latest",
-    "jquery-ui": "~1.10.3"
+    "angular-ui-date": "latest"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",

@@ -21,41 +21,58 @@ angular.module('campaignApp')
 		var i;
 
 		if(user) {
+			$scope.loggedIn = true; 
+
 			userRef = new Firebase('https://campaign.firebaseio.com/users/user_'+user.id);
 			userRef.on("value",function(snapshot) {
-				console.log("her");
-				test(snapshot.val());
-				console.log(snapshot.val());
-				UserService.getTodaysSalesSumForUser("user_"+snapshot.val().user_id, function(data) {
-					$scope.salesSum = data;
+				//console.log("her");
+				test(snapshot.val(), function() {
+					//console.log(snapshot.val());
+					UserService.getTodaysSalesSumForUser("user_"+snapshot.val().user_id, function(data) {
+						var userProgress;
+						$scope.salesSum = data;
 
-					console.log("test ", snapshot.val());
-					TeamService.getTeamSalesSum(snapshot.val().team.id, function(teamSummary) {
-						$scope.safeApply(function() {
-							$scope.teamSum = teamSummary.teamSalesSum;
-							$scope.teamGoal = teamSummary.teamSalesGoal;
+						userProgress = $scope.salesSum/$scope.user.goalDay;
+
+						$scope.userProgress = {
+							width: ($scope.salesSum/$scope.user.goalDay)*100+"%"
+						}
+
+						$scope.userProgressOverGoal = {
+							width: (($scope.salesSum/$scope.user.goalDay)-1)*100+"%"
+						}
+
+						//console.log("test ", snapshot.val());
+						TeamService.getTeamSalesSum(snapshot.val().team.id, function(teamSummary) {
+							$scope.safeApply(function() {
+								$scope.teamSum = teamSummary.teamSalesSum;
+								$scope.teamGoal = teamSummary.teamSalesGoal;
+								$scope.teamProgress = {
+									width: ($scope.teamSum/$scope.teamGoal)*100+"%"
+								}
+
+								$scope.teamProgressOverGoal = {
+									width: (($scope.teamSum/$scope.teamGoal)-1)*100+"%"
+								}
+							});
 						});
 					});
 				});
-
-				
 			});
-			$scope.loggedIn = true; 
 		}
 		else {
-			console.log("Not Logged In");
 			$scope.loggedIn = false; 
 		}
 	});
 
-	function test(userTemp) {
+	function test(userTemp, callback) {
 		var i,
 			campaigns;
 
 		mainRef.child("campaigns").on('value', function(snapshot) {
 			//$scope.campaigns = snapshot.val();
 			campaigns = snapshot.val();
-			console.log("userTemp", userTemp, userTemp.sales);
+			//console.log("userTemp", userTemp, userTemp.sales);
 			if (userTemp.sales) {
 				jQuery.each(userTemp.sales, function(i, val) {
 					userTemp.sales[i].campaignName = campaigns[val.campaign].name;
@@ -67,6 +84,10 @@ angular.module('campaignApp')
 				$scope.user = userTemp;
 				$scope.campaigns = campaigns;
 			});
+
+			if (callback) {
+				callback.apply([]);
+			}
 			
 		});
 	};
@@ -74,10 +95,10 @@ angular.module('campaignApp')
 	$scope.addTeam = function() {
 		TeamService.addTeam("New team", function(error) {
 			if (!error) { // OK
-				console.log("New team added");
+				//console.log("New team added");
 			}
 			else { // Error
-				console.log("Error when adding team");
+				//console.log("Error when adding team");
 			}
 		});
 	};
@@ -85,10 +106,10 @@ angular.module('campaignApp')
 	$scope.addUserToTeam = function() {
 		TeamService.addUserToTeam("-J8rbH1pdqf8Zwc8Iu4N", "user_5", function(error) {
 			if (!error) { // OK
-				console.log("User added");
+				//console.log("User added");
 			}
 			else { // Error
-				console.log("Error when adding user");
+				//console.log("Error when adding user");
 			}
 		});
 	};
@@ -115,14 +136,14 @@ angular.module('campaignApp')
 	$scope.saveGoal = function() {
 		userRef.child("goalDay").set($scope.user.goalDay);
 	};
-
+ 
 	$scope.addSale = function(newSale) {
 
 		var sale = {},
 			salesRef,
 			feedback = {};
 
-			console.log(newSale);
+			//console.log(newSale);
 
 		if(newSale.$valid) {
 
@@ -132,7 +153,7 @@ angular.module('campaignApp')
 			//$scope.campaignId;
 			sale.date = moment().format("YYYY-MM-DD");
 
-			console.log(sale);
+			//console.log(sale);
 
 			salesRef = userRef.child("sales").push(sale);
 

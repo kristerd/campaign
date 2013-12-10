@@ -2,13 +2,13 @@
 
 <form name="newSale">
 		<div class="field">
-			<input ng-model="teamName" name="teamName" type="text" placeholder="Teamnavn" class="xwide text input" required>
+			<input data-ng-model="teamName" name="teamName" type="text" placeholder="Teamnavn" class="xwide text input" required>
 		</div>
-		<div class="medium primary btn" ng-click="addTeam(teamName)">
+		<div class="medium primary btn" data-ng-click="addTeam(teamName)">
 		  <a href="">Opprett team</a>
 		</div>
 </form>
-<div class="row sale" ng-repeat="team in teams">
+<div class="row sale" data-ng-repeat="team in teams">
 	<h5 class="five columns">{{team.name}}</h5>
-	<button ng-click="deleteSale(sale.id)" class="one columns">Details</button>
+	<button data-ng-click="deleteSale(sale.id)" class="one columns">Details</button>
 </div>

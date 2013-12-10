@@ -1,42 +1,42 @@
 <div class="content">
-	<a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
+	<a href="#" data-ng-click="logOut()" data-ng-show="loggedIn">Logg ut</a>
 	<h1>Kampanje</h1>
 	<p>Innstillinger for kampanje: {{campaign.name}}</p>
 	<form action="">
 		<div class="field">
 	      <label class="inline" for="text1">Kampanjenavn</label>
-	      <input ng-model="campaign.name" class="wide text input" id="text1" type="text" placeholder="wide input" />
+	      <input data-ng-model="campaign.name" class="wide text input" id="text1" type="text" placeholder="wide input" />
 	    </div>
 	    <div class="field">
 	      <label class="inline" for="text1">Kampanjestart</label>
-	      <input ng-model="campaign.validFrom" class="narrow text input" id="text1" type="text" placeholder="wide input" />
+	      <input data-ng-model="campaign.validFrom" class="narrow text input" id="text1" type="text" placeholder="wide input" />
 	    </div>
 	    <div class="field">
 	      <label class="inline" for="text1">Kampanjeslutt</label>
-	      <input ng-model="campaign.validTo" class="narrow text input" id="text1" type="text" placeholder="wide input" />
+	      <input data-ng-model="campaign.validTo" class="narrow text input" id="text1" type="text" placeholder="wide input" />
 	    </div>
 		<div class="field">
-			<span class="picker">
-				<select ng-model="campaign.type" >
+			<!--<span class="picker">
+				<select data-ng-model="campaign.type" >
 					<option value="">Velg type</option>
 					<option value="Begge">sdf1</option>
 					<option value="Team">sdf2</option>
 				</select>
-			</span>
+			</span>-->
 		</div>
-		<div class="medium secondary btn" ng-click="save()">
+		<div class="medium secondary btn" data-ng-click="save()">
 			<a href="">Lagre</a>
 		</div>
-		<div ng-repeat="day in days">
+		<div data-ng-repeat="day in days">
 			{{day.date | date:'d'}}
 		</div>
 	</form>
 	<hr>
-	<div class="">
+	<!--<div class="">
 		<h2>Datoer</h2>
 	</div>
 	<div>
-		<div ng-repeat="day in daysWithLeaders" class="date" style="border: 1px solid black; width: 200px; height: 200px; padding: 10px; float: left">
+		<div data-ng-repeat="day in daysWithLeaders" class="date" style="border: 1px solid black; width: 200px; height: 200px; padding: 10px; float: left">
 			<div style="text-align: center; font-size: 30px;">{{day.day}}</div>
 			<progress style="width: 150px; height: 100px;" value="{{day.leader.progress}}" max="1">
 		</div>
@@ -47,18 +47,18 @@
 	</div>
 	<div class="field">
 			<span class="picker">
-				<select ng-model="campaignId" name="campaign" ng-options="o.value as o.label for o in selectables" required>
+				<select data-ng-model="campaignId" name="campaign" data-ng-options="o.value as o.label for o in selectables" required>
 					<option value="">Team 1</option>
 				</select>
 			</span>
-			<div class="medium secondary btn" ng-click="addTeam()">
+			<div class="medium secondary btn" data-ng-click="addTeam()">
 				<a href="">Legg til</a>
 			</div>
 	</div>
-	<div ng-repeat="team in campaign.teams" class="teamList">
+	<div data-ng-repeat="team in campaign.teams" class="teamList">
 		{{team}}
 	</div>
 	<div class="{{feedback.status}} alert">
 		{{feedback.message}}
-	</div>
+	</div>-->
 </div>

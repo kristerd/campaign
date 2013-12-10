@@ -7,12 +7,12 @@ angular.module('campaignApp')
 
     var auth = new FirebaseSimpleLogin(mainRef, function(error, user) {
 
-    	console.log(error, user);
+    	//console.log(error, user);
 
    	});
 
     TeamService.getTeams(function(teams) {
-    	console.log(teams);
+    	//console.log(teams);
     	$scope.safeApply(function() {
     		$scope.teams = teams;
     	});
@@ -21,10 +21,10 @@ angular.module('campaignApp')
   	$scope.addTeam = function(newTeam) {
 		TeamService.addTeam(newTeam, function(error) {
 			if (!error) { // OK
-				console.log("New team "+ newTeam +" added");
+				//console.log("New team "+ newTeam +" added");
 			}
 			else { // Error
-				console.log("Error when adding team: " + newTeam);
+				//console.log("Error when adding team: " + newTeam);
 			}
 		});
 	};

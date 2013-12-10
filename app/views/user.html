@@ -20,14 +20,13 @@
 			<span class="bold">Team</span>
 		</div>
 	</div>
-	<div class="row sale" ng-repeat="(key, user) in users">
+	<div class="row sale" data-ng-repeat="(key, user) in users">
 		<h5 class="five columns">{{user.name}}</h5>
 		<div class="two columns field">
-			<input ng-model="user.goalDay" ng-change="setGoal()" name="goalDay" type="number" placeholder="" class="text input" required>
+			<input data-ng-model="user.goalDay" data-ng-change="setGoal()" name="goalDay" type="number" placeholder="" class="text input" required>
 		</div>
 		<div class="picker five columns">
-			<select ng-model="user.team.id" name="team" ng-options="k as v.name for (k,v) in teams" ng-change="setTeam(key)" required>
-				
+			<select date-ng-model="user.team.id" name="team" data-ng-options="k as v.name for (k,v) in teams" date-ng-change="setTeam(key)" required>
 			</select>
 		</div>
 	</div>

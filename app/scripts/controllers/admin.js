@@ -9,7 +9,7 @@ angular.module('campaignApp')
 				if (user) {
 					angularFire(campaignRef, $scope, 'campaigns');
 				} else {
-					console.log("Not Logged In");
+					//console.log("Not Logged In");
 				}
 			});
 

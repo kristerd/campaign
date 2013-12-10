@@ -11,27 +11,41 @@ angular.module('campaignApp')
 
 	var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
 		if(user) {
-			console.log(user);
-			console.log("Logged In");
+			//console.log(user);
+			//console.log("Logged In");
 			
 			chatRef.child("users").child("user_"+user.id).on('value', function(snapshot) {
-  				console.log('fred’s1 first name is ', snapshot.val());
+  				//console.log('fred’s1 first name is ', snapshot.val());
 			}); 
-			$scope.$apply(function() { 
+			$scope.safeApply(function() { 
 				$location.path("/register"); 
 			});
 		}
 		else {
-			console.log("Not Logged In", error);
+			//console.log("Not Logged In", error);
 		}
 	});
 
 	TeamService.getTeams(function(data) {
-		$scope.$apply(function() {
+		if($scope.safeApply) {
+			$scope.safeApply(function() {
+				$scope.teams = data;
+			});
+		} else {
 			$scope.teams = data;
-		});
-		
-	})
+		}
+	});
+
+	$scope.safeApply = function(fn) {
+	  var phase = this.$root.$$phase;
+	  if(phase == '$apply' || phase == '$digest') {
+	    if(fn && (typeof(fn) === 'function')) {
+	      fn();
+	    }
+	  } else {
+	    this.$apply(fn);
+	  }
+	};
 
 	$scope.logIn = function() {
 		auth.login('password', {
@@ -57,7 +71,7 @@ angular.module('campaignApp')
 
 			  	$scope.error = "";
 
-			    console.log('User Id: ' + user.id + ', Email: ' + user.email);
+			    //console.log('User Id: ' + user.id + ', Email: ' + user.email);
 			    var newUser = User.createNewUser(name, email);
 
 		    	newUser.team = {
@@ -67,8 +81,8 @@ angular.module('campaignApp')
 			    newUser.goalDay = 0;
 			    newUser.user_id = user.id;
 				newUser.save(user.id, function() {
-					console.log("opprettet");
-					$scope.$apply(function() {
+					//console.log("opprettet");
+					$scope.safeApply(function() {
 						$scope.success = true;
 						$scope.message = "Ny bruker opprettet, du kan nå logge inn."
 					});
@@ -77,7 +91,7 @@ angular.module('campaignApp')
 
 			  }
 			  else {
-			  	console.log(error);
+			  	//console.log(error);
 			  	$scope.error = "Oppretting av bruker feilet. " + error;
 			  }
 			});

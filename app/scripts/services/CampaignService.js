@@ -11,7 +11,7 @@ angular.module('campaignApp')
 
 	service.getCampaign = function(campaignId, callback) {
 
-		console.log("CampaignService.getCampaign() called");
+		//console.log("CampaignService.getCampaign() called");
 		
 		campaignRef.child(campaignId).once("value",function(snapshot) {
             if (callback) {
@@ -22,7 +22,7 @@ angular.module('campaignApp')
 
 	service.getDaysWithSales = function(campaignId, callback) {
 
-		console.log("CampaignService.getDaysWithSales() called");
+		//console.log("CampaignService.getDaysWithSales() called");
 
 		var days,
 			users,
@@ -55,7 +55,7 @@ angular.module('campaignApp')
 					      j = 0;
 					      loopUsers();
 					    } else {
-					      console.log("all done");
+					      //console.log("all done");
 					    }
 				  }
 
@@ -63,7 +63,7 @@ angular.module('campaignApp')
 				    if(j < users.length){
 
 				    	UserService.getDateSalesSumForUser("user_"+users[j].user_id, days[i].date, function(data) {
-				    		console.log(data);
+				    		//console.log(data);
 
 				    		var progress = data/users[j].goalDay;
 
@@ -96,7 +96,7 @@ angular.module('campaignApp')
 
 				    		campaignRef.child(campaignId).child("days").child(i).update(angular.copy(days[i]));
 
-				    		console.log(i, j, progress);
+				    		//console.log(i, j, progress);
 					      	
 					      	j++;
 					      	loopUsers()

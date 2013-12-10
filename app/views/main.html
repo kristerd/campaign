@@ -1,41 +1,42 @@
 <div class="content">
-  <a href="#" ng-click="logOut()" ng-show="loggedIn">Logg ut</a>
+  <a href="#" data-ng-click="logOut()" data-ng-show="loggedIn">Logg ut</a>
   <h1>Salgskampanje</h1>
   <h3>Logg inn</h3>
-  <form action="">
+  <form action="" data-ng-submit="logIn()">
 	  <div class="field">
-	  		<input ng-model="user.email" type="text" placeholder="E-mail" class="xwide text input">
+	  		<input data-ng-model="user.email" type="text" placeholder="E-mail" class="xwide text input">
 	  </div>
 	  <div class="field">
-	  		<input ng-model="user.password" type="password" placeholder="Passord" class="xwide text input">
+	  		<input data-ng-model="user.password" type="password" placeholder="Passord" class="xwide text input">
 	  </div>
-	  <div class="medium secondary btn" ng-click="logIn()">
+	  <div class="medium secondary btn" data-ng-click="logIn()">
 		 	<a href="">Logg inn</a>
 	  </div>
+	  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
   </form>
   <span class="success">{{message}}</span>
-  <form ng-show="!success">
+  <form data-ng-show="!success">
   	<h3>Ny Bruker</h3>
 	<div class="field">
 		<div class="picker">
-			<select ng-model="teamId" name="campaign" ng-options="k as v.name for (k,v) in teams" required>
+			<select data-ng-model="teamId" name="campaign" data-ng-options="k as v.name for (k,v) in teams" required>
 				<option value="">Velg team ...</option>
 			</select>
 		</div>
 	</div>
 	<div class="field">
-		<input ng-model="newUser.name" type="text" placeholder="Ditt navn" class="xwide text input">
+		<input data-ng-model="newUser.name" type="text" placeholder="Ditt navn" class="xwide text input">
 	</div>
 	<div class="field">
-		<input ng-model="newUser.email" type="text" placeholder="E-mail" class="xwide text input">
+		<input data-ng-model="newUser.email" type="text" placeholder="E-mail" class="xwide text input">
 	</div>
 	<div class="field">
-		<input ng-model="newUser.password" type="password" placeholder="Ønsket Passord" class="xwide text input">
+		<input data-ng-model="newUser.password" type="password" placeholder="Ønsket Passord" class="xwide text input">
 	</div>
 	<div class="field">
 		<input type="password" placeholder="Gjenta Passord" class="xwide text input">
 	</div>
-	<div class="medium primary btn" ng-click="addUser()">
+	<div class="medium primary btn" data-ng-click="addUser()">
 	  <a href="">Opprett bruker</a>
 	</div>
 	<span class="error">{{error}}</span>
