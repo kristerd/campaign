@@ -3,7 +3,9 @@
 angular.module('campaignApp')
   .factory('User', function () {
 
-    var usersRef = new Firebase('https://campaign.firebaseio.com/users');
+    var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+    var usersRef = new Firebase(firebaseURL+'/users');
     
     var User = function() {
       this.sales = new Array();

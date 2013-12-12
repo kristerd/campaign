@@ -3,9 +3,11 @@
 angular.module('campaignApp')
   .service('CampaignService', function CampaignService(UserService) {
 
-  		var teamRef = new Firebase('https://campaign.firebaseio.com/teams'),
-	  		userRef = new Firebase('https://campaign.firebaseio.com/users'),
-	  		campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns'),
+  		var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+  		var teamRef = new Firebase(firebaseURL+'/teams'),
+	  		userRef = new Firebase(firebaseURL+'/users'),
+	  		campaignRef = new Firebase(firebaseURL+'/campaigns'),
 	    	service = {};
 
 
@@ -18,7 +20,7 @@ angular.module('campaignApp')
                 callback.apply(this, [snapshot.val()]);
             }
         });
-	}
+	};
 
 	service.getDaysWithSales = function(campaignId, callback) {
 
@@ -59,7 +61,7 @@ angular.module('campaignApp')
 					    }
 				  }
 
-				  function loopUsers(){
+				  function loopUsers() {
 				    if(j < users.length){
 
 				    	UserService.getDateSalesSumForUser("user_"+users[j].user_id, days[i].date, function(data) {
@@ -112,12 +114,6 @@ angular.module('campaignApp')
 
 				})(users, days, campaignId);
 
-
-	          		
-	          	//getUserSalesSumByDate(index, user, dayIndex, day, campaignId);
-
-          		//daysWithLeaders.push(day);
-
           		if (callback) {
       				//console.log("CALLBACK: CampaignService.getDaysWithSales()", daysWithLeaders);
     				callback.apply(this);
@@ -126,7 +122,36 @@ angular.module('campaignApp')
     	});
     };
 
+    service.getTopUsersByDay = function(date, callback) {
 
+    	var users,
+    		usersByProgress = new Array();
+
+    	UserService.getUsers(function(users) {
+
+    		users = users;
+
+    		$.each(users, function(index, value) {
+    			UserService.getProgressByDate(index, "2013-12-11", function(data) {
+    				usersByProgress.push(data);
+    			});
+    		});
+
+    		usersByProgress.sort(compare);
+
+    		if (callback) {
+    			callback.apply(this, [usersByProgress.slice(0,3)]);
+    		};
+    	});
+
+    	function compare(a,b) {
+		  if (a.underGoal < b.underGoal)
+		     return 1;
+		  if (a.underGoal > b.underGoal)
+		    return -1;
+		  return 0;
+		};
+    };
 
   	function getUserSalesSumByDate(userIndex, user, dayIndex, day, campaignId) {
 
@@ -151,7 +176,6 @@ angular.module('campaignApp')
 							day.winner = user;
 						}
 					}
-					
 					campaignRef.child(campaignId).child("days").child(dayIndex).update(angular.copy(day));
 				}
 			}
@@ -159,17 +183,8 @@ angular.module('campaignApp')
 				//console.log(data);
 			}
 		});
-    	
-    }
-	    	
-    function compareDates(date1, date2) {
-        //call setHours to take the time out of the comparison
-        if(date1.setHours(0,0,0,0) === date2.setHours(0,0,0,0))
-        {
-            return true;
-        }
-        return false;
-    }
+    };
+
 
 	    return service;
   });

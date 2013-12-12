@@ -2,7 +2,10 @@
 
 angular.module('campaignApp')
 		.controller('AdminCtrl', function ($scope, $routeParams, $location, Campaign, angularFire) {
-			var campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns'),
+			
+			var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+			var campaignRef = new Firebase(firebaseURL+'/campaigns'),
 				auth;
 
 			auth = new FirebaseSimpleLogin(campaignRef, function (error, user) {

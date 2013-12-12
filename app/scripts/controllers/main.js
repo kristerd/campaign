@@ -6,8 +6,10 @@ angular.module('campaignApp')
   	$scope.user,
   	$scope.newUser = {};
   	$scope.success = false;
+
+  	var firebaseURL = "https://campaign-dev.firebaseio.com";
    
-  	var chatRef = new Firebase('https://campaign.firebaseio.com');
+  	var chatRef = new Firebase(firebaseURL);
 
 	var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
 		if(user) {

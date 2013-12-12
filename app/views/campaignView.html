@@ -1,12 +1,13 @@
 <div class="calendarView">
-	<div data-ng-show="!day.weekend" class="date" style="overflow: hidden;" data-ng-repeat="day in daysWithLeaders" class="date">
+	<div data-ng-show="!day.weekend" class="date" style="overflow: hidden;" data-ng-repeat="day in dates" class="date">
 		<div class="calendarDay">{{day.day}}</div>
 		<div data-ng-show="day.winner" class="winner">
 			<div>VINNER:</div>
 			{{day.winner.name}}
 		</div>
 		<!--<progress class="calendarProgress" style="" value="{{day.leader.progress}}" max="1">-->
-		<div class="progress" style="height: 200px;" data-ng-style="{width: (day.leader.progress)*100+'%'}">
+		<div class="progress" style="height: 67px; overflow:hidden;" ng-repeat="leader in day.leaders" data-ng-style="{width: (leader.underGoal+0.7-($index/10))*100+'%'}">
+			<span style="color: white; margin-left: 5px; display: inline-block; width: 200px;">{{$index+1}}. plass</span>
 		</div>
 	</div>
 </div>

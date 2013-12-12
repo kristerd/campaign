@@ -3,8 +3,10 @@
 angular.module('campaignApp')
   .service('TeamService', function TeamService() {
 
-  	var teamRef = new Firebase('https://campaign.firebaseio.com/teams'),
-  		userRef = new Firebase('https://campaign.firebaseio.com/users'),
+    var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+  	var teamRef = new Firebase(firebaseURL+'/teams'),
+  		userRef = new Firebase(firebaseURL+'/users'),
     	service = {};
 
   	service.getTeams = function(callback) {

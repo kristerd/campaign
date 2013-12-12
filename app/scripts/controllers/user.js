@@ -3,7 +3,9 @@
 angular.module('campaignApp')
   .controller('UserCtrl', function ($scope, UserService, TeamService) {
     
-  	var mainRef = new Firebase('https://campaign.firebaseio.com');
+  	var firebaseURL = "https://campaign-dev.firebaseio.com";
+    
+  	var mainRef = new Firebase(firebaseURL);
 
     var auth = new FirebaseSimpleLogin(mainRef, function(error, user) {
 

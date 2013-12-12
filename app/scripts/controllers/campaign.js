@@ -2,23 +2,14 @@
 
 angular.module('campaignApp')
 		.controller('CampaignCtrl', function ($scope, $routeParams, $location, Campaign, angularFire, CampaignService) {
-			var campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns/' + $routeParams.campaignId),
-				usersRef = new Firebase('https://campaign.firebaseio.com/users'),
+			
+			var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+			var campaignRef = new Firebase(firebaseURL+'/campaigns/' + $routeParams.campaignId),
+				usersRef = new Firebase(firebaseURL+'/users'),
 				auth;
 
 			$scope.teams = new Array();
-
-			$scope.items = [
-			 { id: 0, name: 'Velg kampanjetype'},
-		     { id: 1, name: 'foo' },
-		     { id: 2, name: 'bar' },
-		     { id: 3, name: 'blah' }
-		   ];
-
-		   $scope.selectables = [ 
-		   		{label:"One", value:1, anotherValue:'Moo'}, 
-		   		{label:"Two", value:2, anotherValue:'Cow'}
-		   ];
 
 			auth = new FirebaseSimpleLogin(campaignRef, function (error, user) {
 				if (user) {
@@ -93,13 +84,12 @@ angular.module('campaignApp')
 						day.weekend = false;	
 					}
 
-					days.push(day);
+					days[day.date] = day;
 
 					//console.log(currentDate.format("YYYY-MM-DD"));
 					currentDate = currentDate.add('days', 1);
 				} 
-
-				$scope.campaign.days = days;
+				campaignRef.child("dates").set(days);
 			}
 
 			function daydiff(first, second) {

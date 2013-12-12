@@ -3,7 +3,9 @@
 angular.module('campaignApp')
   .controller('RegisterCtrl', function ($scope, $location, angularFire, TeamService, UserService) {
 
-	var mainRef = new Firebase('https://campaign.firebaseio.com'),
+  	var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+	var mainRef = new Firebase(firebaseURL),
 		userRef,
 		userId;
 
@@ -23,39 +25,36 @@ angular.module('campaignApp')
 		if(user) {
 			$scope.loggedIn = true; 
 
-			userRef = new Firebase('https://campaign.firebaseio.com/users/user_'+user.id);
-			userRef.on("value",function(snapshot) {
-				//console.log("her");
-				test(snapshot.val(), function() {
-					//console.log(snapshot.val());
-					UserService.getTodaysSalesSumForUser("user_"+snapshot.val().user_id, function(data) {
-						var userProgress;
-						$scope.salesSum = data;
+			userRef = new Firebase(firebaseURL+'/users/user_'+user.id);
 
-						userProgress = $scope.salesSum/$scope.user.goalDay;
+			userRef.on("value",function(snapshot) {
+
+				$scope.user = snapshot.val();
+
+				var salesSum,
+					progress,
+					teamSum,
+					user = snapshot.val();
+
+				UserService.getSalesSumByDate("user_"+snapshot.val().user_id, null, function(sum) {
+					
+					salesSum = sum;
+
+					UserService.getProgressByDate("user_"+snapshot.val().user_id, null, function(progress) {
+						progress = progress;
 
 						$scope.userProgress = {
-							width: ($scope.salesSum/$scope.user.goalDay)*100+"%"
+							width: (progress.underGoal)*100+"%"
 						}
 
 						$scope.userProgressOverGoal = {
-							width: (($scope.salesSum/$scope.user.goalDay)-1)*100+"%"
+							width: (progress.overGoal)*100+"%"
 						}
 
-						//console.log("test ", snapshot.val());
-						TeamService.getTeamSalesSum(snapshot.val().team.id, function(teamSummary) {
-							$scope.safeApply(function() {
-								$scope.teamSum = teamSummary.teamSalesSum;
-								$scope.teamGoal = teamSummary.teamSalesGoal;
-								$scope.teamProgress = {
-									width: ($scope.teamSum/$scope.teamGoal)*100+"%"
-								}
+						$scope.salesSum = salesSum;
+						$scope.goalDay = user.goalDay;
 
-								$scope.teamProgressOverGoal = {
-									width: (($scope.teamSum/$scope.teamGoal)-1)*100+"%"
-								}
-							});
-						});
+						$scope.safeApply();
 					});
 				});
 			});
@@ -64,55 +63,6 @@ angular.module('campaignApp')
 			$scope.loggedIn = false; 
 		}
 	});
-
-	function test(userTemp, callback) {
-		var i,
-			campaigns;
-
-		mainRef.child("campaigns").on('value', function(snapshot) {
-			//$scope.campaigns = snapshot.val();
-			campaigns = snapshot.val();
-			//console.log("userTemp", userTemp, userTemp.sales);
-			if (userTemp.sales) {
-				jQuery.each(userTemp.sales, function(i, val) {
-					userTemp.sales[i].campaignName = campaigns[val.campaign].name;
-					userTemp.sales[i].id = i;
-				});
-			}
-
-			$scope.safeApply(function() {
-				$scope.user = userTemp;
-				$scope.campaigns = campaigns;
-			});
-
-			if (callback) {
-				callback.apply([]);
-			}
-			
-		});
-	};
-
-	$scope.addTeam = function() {
-		TeamService.addTeam("New team", function(error) {
-			if (!error) { // OK
-				//console.log("New team added");
-			}
-			else { // Error
-				//console.log("Error when adding team");
-			}
-		});
-	};
-
-	$scope.addUserToTeam = function() {
-		TeamService.addUserToTeam("-J8rbH1pdqf8Zwc8Iu4N", "user_5", function(error) {
-			if (!error) { // OK
-				//console.log("User added");
-			}
-			else { // Error
-				//console.log("Error when adding user");
-			}
-		});
-	};
 
 	$scope.safeApply = function(fn) {
 	  var phase = this.$root.$$phase;
@@ -141,6 +91,7 @@ angular.module('campaignApp')
 
 		var sale = {},
 			salesRef,
+			salesRef2,
 			feedback = {};
 
 			//console.log(newSale);
@@ -156,6 +107,9 @@ angular.module('campaignApp')
 			//console.log(sale);
 
 			salesRef = userRef.child("sales").push(sale);
+			salesRef2 = userRef.child("sales2").child("dates").child("2013-12-10").push(sale, function(error) {
+				
+			});
 
 			feedback.message = "Nytt salg lagt inn";
 			feedback.status = "success";

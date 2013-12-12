@@ -3,8 +3,10 @@
 angular.module('campaignApp')
   .service('UserService', function UserService() {
 
-  	var teamRef = new Firebase('https://campaign.firebaseio.com/teams'),
-  		userRef = new Firebase('https://campaign.firebaseio.com/users'),
+    var firebaseURL = "https://campaign-dev.firebaseio.com";
+
+  	var teamRef = new Firebase(firebaseURL+'/teams'),
+  		userRef = new Firebase(firebaseURL+'/users'),
     	service = {};
 
     service.updateUser = function(id, user, callback) {
@@ -45,6 +47,63 @@ angular.module('campaignApp')
                 callback.apply(this, [todaysSales]);
             }
             
+        });
+    };
+
+    service.getSalesByDate = function(userId, date, callback) {
+
+        if (date===null || !angular.isDefined(date)) {
+            date = moment().format("YYYY-MM-DD");
+        };
+
+        userRef.child(userId).child("sales2").child("dates").child(date).once("value", function(snapshot) {
+            if (callback) {
+                callback.apply(this, [snapshot.val()]);
+            }
+        });
+    };
+
+    service.getSalesSumByDate = function(userId, date, callback) {
+        
+        var sum = 0;
+
+        service.getSalesByDate(userId, date, function(sales) {
+
+            if (sales && sales !== null) {
+              $.each(sales, function( index, value ) {
+                  sum += value.amount;
+              });
+            }
+            
+            if (callback) {
+                callback.apply(this, [sum]);
+            }
+        });
+    };
+
+    service.getProgressByDate = function(userId, date, callback) {
+
+        var goal = 0,
+            sum = 0,
+            progressObject = 0;
+
+        userRef.child(userId).child("goalDay").once("value", function(goal) {
+            goal = goal.val();
+
+            service.getSalesSumByDate(userId, date, function(sum) {
+                progressObject = {
+                    userId: userId,
+                    sum: sum,
+                    underGoal: (sum / goal),
+                    overGoal: (sum / goal)-1
+                };
+
+                console.log(sum, goal);
+
+                if (callback) {
+                    callback.apply(this, [progressObject]);
+                }
+            });
         });
     };
 
@@ -121,58 +180,6 @@ angular.module('campaignApp')
             }
         });
     } 
-
-    function compareDates(date1, date2) {
-        //call setHours to take the time out of the comparison
-        if(date1.setHours(0,0,0,0) === date2.setHours(0,0,0,0))
-        {
-            return true;
-        }
-        return false;
-    }
-  
-
-  	/*service.getUserss = function(callback) {
-
-  		var teams = {},
-          users = {},
-          usersWithTeam = {};
-
-          usersWithTeam = new Array();
-
-  		userRef.once("value",function(snapshot) {
-
-          users = snapshot.val();
-          
-          teamRef.once("value", function(snapshot) {
-              teams = snapshot.val();
-
-              $.each(users, function( index, value ) {
-                  var userId = index,
-                      currentUser = value;
-                  $.each(teams, function( index, value ) {
-                    var teamId = index,
-                        currentTeam = {
-                          id: index,
-                          teamDetails: value 
-                        };
-                    if (value.users) {
-                        $.each(value.users, function( index, value ) {
-                          if (userId === value) {
-                              currentUser.team = currentTeam.id;
-                              currentUser.teamDetails = currentTeam;
-                          }
-                        });
-                    }
-                  });
-                  usersWithTeam.push(currentUser);
-              });
-              if (callback) {
-                callback.apply(this, [usersWithTeam]);
-              }
-          });  			
-		  });
-    };*/
 
     return service;
 

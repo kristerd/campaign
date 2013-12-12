@@ -2,8 +2,11 @@
 
 angular.module('campaignApp')
 		.service('Campaign', function() {
+
+			var firebaseURL = "https://campaign-dev.firebaseio.com";
+
 			var Campaign,
-				campaignRef = new Firebase('https://campaign.firebaseio.com/campaigns');
+				campaignRef = new Firebase(firebaseURL+'/campaigns');
 
 			Campaign = function (name, goal, validFrom, validTo) {
 				this.name = name;
